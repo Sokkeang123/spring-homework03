@@ -13,7 +13,7 @@ import java.util.List;
 public class EventUpdateRequest {
     private String eventName;
     private Date eventDate;
-    private Integer venueId;  // Changed from Venue to Integer (just ID)
+    private Integer venueId;
     private List<Integer> attendeeIds;
 
 }

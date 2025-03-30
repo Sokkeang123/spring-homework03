@@ -21,6 +21,9 @@
 
 package org.example._14_sieb_sokkeang_pp_web_homework003.model.request;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,8 +35,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EventRequest {
+    @NotNull
+    @NotBlank
+    @Size(min = 1, max = 50, message = "Event Name must be 1 and 50 character")
     private String eventName;
     private Date eventDate;
-    private Integer venueId;  // Changed from Venue to Integer (just ID)
-    private List<Integer> attendeeIds;  // Changed from List<Attendee> to List<Integer> (just IDs)
+    private Integer venueId;
+    private List<Integer> attendeeIds;
 }

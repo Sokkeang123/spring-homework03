@@ -1,5 +1,7 @@
 package org.example._14_sieb_sokkeang_pp_web_homework003.controller;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.example._14_sieb_sokkeang_pp_web_homework003.model.entity.Venue;
 import org.example._14_sieb_sokkeang_pp_web_homework003.model.request.VenueRequest;
@@ -8,7 +10,6 @@ import org.example._14_sieb_sokkeang_pp_web_homework003.service.VenueService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -22,8 +23,8 @@ public class VenueController {
     // Get all venues with pagination
     @GetMapping
     public ResponseEntity<ApiResponse<List<Venue>>> getAllVenues(
-            @RequestParam(defaultValue = "1") Integer page,
-            @RequestParam(defaultValue = "10") Integer size
+            @RequestParam(defaultValue = "1") @Positive Integer page,
+            @RequestParam(defaultValue = "10") @Positive Integer size
     ) {
         ApiResponse<List<Venue>> response = ApiResponse.<List<Venue>>builder()
                 .message("Get All Venues Successfully")
@@ -44,12 +45,14 @@ public class VenueController {
                 .status(HttpStatus.OK)
                 .timestamp(LocalDateTime.now())
                 .build();
+
+
         return ResponseEntity.ok(response);
     }
 
     // Create a new venue
     @PostMapping
-    public ResponseEntity<ApiResponse<Venue>> createVenue(@RequestBody VenueRequest venueRequest) {
+    public ResponseEntity<ApiResponse<Venue>> createVenue(@RequestBody @Valid VenueRequest venueRequest) {
         Venue createdVenue = venueService.createVenue(venueRequest);
         ApiResponse<Venue> response = ApiResponse.<Venue>builder()
                 .message("Create Venue Successfully")

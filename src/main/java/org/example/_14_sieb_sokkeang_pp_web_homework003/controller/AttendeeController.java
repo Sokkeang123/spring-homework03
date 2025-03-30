@@ -1,4 +1,6 @@
 package org.example._14_sieb_sokkeang_pp_web_homework003.controller;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.example._14_sieb_sokkeang_pp_web_homework003.model.entity.Attendee;
 import org.example._14_sieb_sokkeang_pp_web_homework003.model.request.AttendeeRequest;
@@ -19,8 +21,8 @@ public class AttendeeController {
     // Get all attendees with pagination
     @GetMapping
     public ResponseEntity<ApiResponse<List<Attendee>>> getAllAttendees(
-            @RequestParam(defaultValue = "1") Integer page,
-            @RequestParam(defaultValue = "10") Integer size
+            @RequestParam(defaultValue = "1") @Positive Integer page,
+            @RequestParam(defaultValue = "10") @Positive Integer size
     ) {
         ApiResponse<List<Attendee>> response = ApiResponse.<List<Attendee>>builder()
                 .message("Get All Attendees Successfully")
@@ -45,7 +47,7 @@ public class AttendeeController {
 
     // Create a new attendee
     @PostMapping
-    public ResponseEntity<ApiResponse<Attendee>> createAttendee(@RequestBody AttendeeRequest attendeeRequest) {
+    public ResponseEntity<ApiResponse<Attendee>> createAttendee(@RequestBody @Valid AttendeeRequest attendeeRequest) {
         Attendee createdAttendee = attendeeService.createAttendee(attendeeRequest);
         ApiResponse<Attendee> response = ApiResponse.<Attendee>builder()
                 .message("Create Attendee Successfully")

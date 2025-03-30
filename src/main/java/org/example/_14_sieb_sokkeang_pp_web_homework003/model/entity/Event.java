@@ -11,6 +11,6 @@ public class Event {
     private Integer eventId;
     private String eventName;
     private Date eventDate;
-    private Venue venue; // Changed from List<Venue> to Venue (one-to-many relationship)
-    private List<Attendee> attendees; // Added to reflect the many-to-many relationship
+    private Venue venue;
+    private List<Attendee> attendees;
 }

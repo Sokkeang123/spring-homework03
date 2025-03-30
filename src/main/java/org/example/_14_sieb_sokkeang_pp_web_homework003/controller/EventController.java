@@ -1,5 +1,7 @@
 package org.example._14_sieb_sokkeang_pp_web_homework003.controller;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.example._14_sieb_sokkeang_pp_web_homework003.model.entity.Event;
 import org.example._14_sieb_sokkeang_pp_web_homework003.model.request.EventRequest;
@@ -23,8 +25,8 @@ public class EventController {
     // Get all events with pagination
     @GetMapping
     public ResponseEntity<ApiResponse<List<Event>>> getAllEvents(
-            @RequestParam(defaultValue = "1") Integer page,
-            @RequestParam(defaultValue = "10") Integer size) {
+            @RequestParam(defaultValue = "1") @Positive Integer page,
+            @RequestParam(defaultValue = "10") @Positive Integer size) {
         ApiResponse<List<Event>> response = ApiResponse.<List<Event>>builder()
                 .message("Get All Events Successfully")
                 .payload(eventService.getAllEvents(page, size))
@@ -49,7 +51,7 @@ public class EventController {
 
     // Create a new event
     @PostMapping
-    public ResponseEntity<ApiResponse<Event>> createEvent(@RequestBody EventRequest eventRequest) {
+    public ResponseEntity<ApiResponse<Event>> createEvent(@RequestBody @Valid EventRequest eventRequest) {
         Event createdEvent = eventService.createEvent(eventRequest);
 
         ApiResponse<Event> response = ApiResponse.<Event>builder()

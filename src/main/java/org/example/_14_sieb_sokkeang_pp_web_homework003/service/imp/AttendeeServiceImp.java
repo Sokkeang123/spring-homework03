@@ -40,11 +40,6 @@ public class AttendeeServiceImp implements AttendeeService {
         return attendeeRepository.updateAttendee(id, attendeeRequest);
     }
 
-//    @Override
-//    public void deleteAttendee(Integer id) {
-//        attendeeRepository.deleteAttendee(id);
-//    }
-
     @Override
     public void deleteAttendee(Integer id) {
         attendeeRepository.deleteEventAttendeeRecords(id);

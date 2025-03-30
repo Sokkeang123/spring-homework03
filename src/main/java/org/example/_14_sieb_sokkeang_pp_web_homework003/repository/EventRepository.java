@@ -1,5 +1,4 @@
 package org.example._14_sieb_sokkeang_pp_web_homework003.repository;
-
 import org.apache.ibatis.annotations.*;
 import org.example._14_sieb_sokkeang_pp_web_homework003.model.entity.Attendee;
 import org.example._14_sieb_sokkeang_pp_web_homework003.model.entity.Event;
@@ -8,7 +7,6 @@ import org.example._14_sieb_sokkeang_pp_web_homework003.model.request.EventReque
 import org.example._14_sieb_sokkeang_pp_web_homework003.model.request.EventUpdateRequest;
 
 import java.util.List;
-
 @Mapper
 public interface EventRepository {
 
@@ -81,26 +79,4 @@ public interface EventRepository {
     @Result(property = "attendeeId" , column = "attendee_id")
     @Result(property = "attendeeName", column = "attendee_name")
     List<Attendee> getAttendeesByEventId(@Param("eventId") Integer eventId);
-
-//    Event createEvent(EventRequest eventRequest);
-
-//    Event updateEvent(Integer id, EventRequest eventRequest);
-
-//    Event updateEvent(Integer id, EventRequest eventRequest);
-
-//    Event updateEvent(Integer id, EventRequest eventRequest);
-
-    // update course by id
-//    @Select("""
-//    UPDATE events
-//
-//
-//    SET event_name = #{course.courseName}, location = #{event.location}, venue_id = #{event.venueId}
-//    WHERE event_id = #{id}
-//    RETURNING *
-//""")
-//    @ResultMap("eventMapper")
-//    Event updateEvent(@Param("id") Integer id, @Param("course") EventRequest courseUpdateRequest);
-
-
 }
