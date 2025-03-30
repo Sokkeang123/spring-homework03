@@ -12,7 +12,7 @@ public interface VenueRepository {
     // Get all venues with pagination
     @Select("""
         SELECT * FROM venues
-        OFFSET #{size} * (#{page} - 1)
+        OFFSET (#{size} * (#{page} - 1))
         LIMIT #{size}
     """)
     @Results(id = "venueMapper", value = {
@@ -30,21 +30,21 @@ public interface VenueRepository {
     // Add new venue
     @Select("""
         INSERT INTO venues (venue_name, location)
-        VALUES (#{VenueRequest.venueName}, #{VenueRequest.location})
-        RETURNING *;
+        VALUES (#{venueRequest.venueName}, #{venueRequest.location})
+        RETURNING *
     """)
     @ResultMap("venueMapper")
-    Venue createVenue(@Param("VenueRequest") VenueRequest venueRequest);
+    Venue createVenue(@Param("venueRequest") VenueRequest venueRequest);
 
     // Update venue by ID
     @Select("""
         UPDATE venues
-        SET venue_name = #{VenueRequest.venueName}, location = #{VenueRequest.location}
+        SET venue_name = #{venueRequest.venueName}, location = #{venueRequest.location}
         WHERE venue_id = #{venueId}
-        RETURNING *;
+        RETURNING *
     """)
     @ResultMap("venueMapper")
-    Venue updateVenue(@Param("venueId") Integer venueId, @Param("VenueRequest") VenueRequest venueRequest);
+    Venue updateVenue(@Param("venueId") Integer venueId, @Param("venueRequest") VenueRequest venueRequest);
 
     // Delete venue by ID
     @Delete("DELETE FROM venues WHERE venue_id = #{venueId}")

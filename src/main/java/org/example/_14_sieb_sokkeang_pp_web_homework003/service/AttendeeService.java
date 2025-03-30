@@ -6,14 +6,9 @@ import org.example._14_sieb_sokkeang_pp_web_homework003.model.request.AttendeeRe
 import java.util.List;
 
 public interface AttendeeService {
-
     List<Attendee> getAllAttendees(Integer page, Integer size);
-
-    Attendee getAttendeeById(Integer attendeeId);
-
+    Attendee getAttendeeById(Integer id);
     Attendee createAttendee(AttendeeRequest attendeeRequest);
-
-    Attendee updateAttendee(Integer attendeeId, AttendeeRequest attendeeRequest);
-
-    void deleteAttendee(Integer attendeeId);
+    Attendee updateAttendee(Integer id, AttendeeRequest attendeeRequest);
+    void deleteAttendee(Integer id);
 }

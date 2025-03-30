@@ -12,7 +12,7 @@ public interface AttendeeRepository {
     // Get all attendees with pagination
     @Select("""
         SELECT * FROM attendees
-        OFFSET #{size} * (#{page} - 1)
+        OFFSET (#{size} * (#{page} - 1))
         LIMIT #{size}
     """)
     @Results(id = "attendeeMapper", value = {
@@ -31,7 +31,7 @@ public interface AttendeeRepository {
     @Select("""
         INSERT INTO attendees (attendee_name, email)
         VALUES (#{attendeeRequest.attendeeName}, #{attendeeRequest.email})
-        RETURNING *;
+        RETURNING *
     """)
     @ResultMap("attendeeMapper")
     Attendee createAttendee(@Param("attendeeRequest") AttendeeRequest attendeeRequest);
@@ -41,12 +41,26 @@ public interface AttendeeRepository {
         UPDATE attendees
         SET attendee_name = #{attendeeRequest.attendeeName}, email = #{attendeeRequest.email}
         WHERE attendee_id = #{attendeeId}
-        RETURNING *;
+        RETURNING *
     """)
     @ResultMap("attendeeMapper")
     Attendee updateAttendee(@Param("attendeeId") Integer attendeeId, @Param("attendeeRequest") AttendeeRequest attendeeRequest);
 
     // Delete attendee by ID
-    @Delete("DELETE FROM attendees WHERE attendee_id = #{attendeeId}")
-    void deleteAttendee(@Param("attendeeId") Integer attendeeId);
+    @Delete("DELETE FROM event_attendee WHERE attendee_id = #{attendeeId}")
+    void deleteEventAttendeeRecords(@Param("attendeeId") Integer attendeeId);
+//    @Delete("DELETE FROM attendees WHERE attendee_id = #{attendeeId}")
+//    void deleteAttendee(@Param("attendeeId") Integer attendeeId);
+
+    // Existing method from previous implementation (for Event relationship)
+    @Select("""
+        SELECT a.* 
+        FROM attendees a
+        JOIN event_attendee ea ON a.attendee_id = ea.attendee_id
+        WHERE ea.event_id = #{eventId}
+    """)
+    @ResultMap("attendeeMapper")
+    List<Attendee> getAttendeesByEventId(@Param("eventId") Integer eventId);
+
+    void deleteAttendee(Integer id);
 }

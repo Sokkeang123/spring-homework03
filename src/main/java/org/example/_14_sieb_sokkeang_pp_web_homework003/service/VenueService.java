@@ -6,14 +6,9 @@ import org.example._14_sieb_sokkeang_pp_web_homework003.model.request.VenueReque
 import java.util.List;
 
 public interface VenueService {
-
      List<Venue> getAllVenues(Integer page, Integer size);
-
-     Venue getVenueById(Integer venueId);
-
+     Venue getVenueById(Integer id);
      Venue createVenue(VenueRequest venueRequest);
-
-     Venue updateVenue(Integer venueId, VenueRequest venueRequest);
-
-     void deleteVenue(Integer venueId);
+     Venue updateVenue(Integer id, VenueRequest venueRequest);
+     void deleteVenue(Integer id);
 }
